@@ -19,6 +19,5 @@ namespace AgroAnnuaire.Data
             optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=AgroAnnuaire");
         }
 
-
     }
 }

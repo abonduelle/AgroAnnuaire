@@ -1,4 +1,4 @@
-﻿<Window x:Class="WpfAgroAnnuaire.MainWindow"
+﻿<Window x:Name="Annuaire" x:Class="WpfAgroAnnuaire.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,11 +7,42 @@
         mc:Ignorable="d"
         Title="Annuaire" Height="450" Width="800"
         WindowStartupLocation="CenterScreen">
-    <Grid>
-        <DataGrid HorizontalAlignment="Left" Height="313" Margin="305,58,0,0" VerticalAlignment="Top" Width="469" d:ItemsSource="{d:SampleData ItemCount=5}"/>
-        <ComboBox HorizontalAlignment="Left" Margin="34,60,0,0" VerticalAlignment="Top" Width="155"/>
-        <ComboBox HorizontalAlignment="Left" Margin="34,101,0,0" VerticalAlignment="Top" Width="155"/>
-        <GroupBox Header="GroupBox"/>
+    <Grid x:Name="GridAgroAnnuaire">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="175*"/>
+            <RowDefinition Height="340*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="225*"/>
+            <ColumnDefinition Width="750*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="CollaborateursList" HorizontalAlignment="Left" Height="250" Margin="20,20,0,0" 
+                  VerticalAlignment="Top" Width="570" Background="#FFF0F0F0" BorderBrush="#FF40547B"
+                  VerticalGridLinesBrush="#FF165B08" HeadersVisibility="Column" Grid.Column="2" Grid.Row="2" IsEnabled="True" SelectionChanged="CollaborateursList_SelectionChanged"/>
+
+        <ComboBox x:Name="ComboSiteList" Margin="18,109,0,0" VerticalAlignment="Top" Width="156"
+                  DisplayMemberPath="Ville" SelectedValuePath="Id" SelectedValue="{Binding Id}" IsEditable="True" IsReadOnly="True" 
+                  Height="25" Text="Site" ScrollViewer.HorizontalScrollBarVisibility="Visible" Grid.ColumnSpan="1" Grid.Row="1" SelectionChanged="ComboSiteList_SelectionChanged" HorizontalAlignment="Left"/>
+
+        <ComboBox x:Name="ComboServiceList" HorizontalAlignment="Left" Margin="18,159,0,0" VerticalAlignment="Top" Width="156"
+                 DisplayMemberPath="Name" SelectedValuePath="Id" SelectedValue="{Binding Id}" IsEditable="True" IsReadOnly="True"
+                  Height="25" Text="Service" ScrollViewer.HorizontalScrollBarVisibility="Visible" Grid.ColumnSpan="1" Grid.Row="1" SelectionChanged="ComboServiceList_SelectionChanged"/>
+
+        <TextBox x:Name="Filtre" HorizontalAlignment="Left" Height="25"        
+                 Margin="18,209,0,0" Text="Le nom contient les lettres:" VerticalAlignment="Top" Width="156"
+                 Grid.ColumnSpan="1" Grid.Row="1" TextChanged="Filtre_TextChanged"/>
+
+        <Button x:Name="Reinitialize" Content="Réinitialiser" Margin="18,59,0,0" Grid.Row="1" VerticalAlignment="Top" Width="156" Click="Reinitialize_Click" Height="25" HorizontalAlignment="Left"/>
+
+        <TextBox x:Name="Nom" Text="{Binding ElementName=CollaborateursList,Path=SelectedItem.LastName,Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Center" Height="25" Margin="0,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156"/>
+        <TextBox x:Name="Prenom" Text="{Binding ElementName=CollaborateursList,Path=SelectedItem.FirstName,Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Left" Height="25" Margin="20,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156"/>
+        <TextBox x:Name="TelFixe" Text="{Binding ElementName=CollaborateursList,Path=SelectedItem.PhoneNumber,Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Left" Height="25" Margin="20,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156"/>
+        <TextBox x:Name="TelMobile" Text="{Binding ElementName=CollaborateursList,Path=SelectedItem.MobilePhoneNumber,Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Center" Height="25" Margin="0,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156"/>
+        <TextBox x:Name="Courriel" Text="{Binding ElementName=CollaborateursList,Path=SelectedItem.Email,Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Left" Height="25" Margin="434,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156"/>
+        <TextBox x:Name="Site" Text="{Binding ElementName=CollaborateursList,Path=SelectedItem.site.Ville,Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Left" Height="25" Margin="20,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156"/>
+        <TextBox x:Name="Service" Text="{Binding ElementName=CollaborateursList,Path=SelectedItem.service.Name,Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Center" Height="25" Margin="0,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156"/>
+        <TextBox x:Name="SiteCollaborateur" Text="{Binding ElementName=ComboSiteList,Path=SelectedItem.Ville,Mode=TwoWay}" HorizontalAlignment="Left" Height="25" Margin="18,37,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156"/>
+        <TextBox x:Name="ServiceCollaborateur" Text="{Binding ElementName=ComboServiceList,Path=SelectedItem.Name,Mode=TwoWay}" HorizontalAlignment="Left" Height="25" Margin="18,74,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156"/>
 
     </Grid>
 </Window>

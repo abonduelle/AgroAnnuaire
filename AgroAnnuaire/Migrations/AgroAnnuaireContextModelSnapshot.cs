@@ -21,30 +21,6 @@ namespace AgroAnnuaire.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("AgroAnnuaire.Models.Administrateur", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CollaborateurId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Login")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Administrateurs");
-                });
-
             modelBuilder.Entity("AgroAnnuaire.Models.Collaborateur", b =>
                 {
                     b.Property<int>("Id")
@@ -80,6 +56,10 @@ namespace AgroAnnuaire.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ServiceId");
+
+                    b.HasIndex("SiteId");
 
                     b.ToTable("Collaborateurs");
                 });
@@ -120,6 +100,35 @@ namespace AgroAnnuaire.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Sites");
+                });
+
+            modelBuilder.Entity("AgroAnnuaire.Models.Collaborateur", b =>
+                {
+                    b.HasOne("AgroAnnuaire.Models.Service", "service")
+                        .WithMany("Collaborateurs")
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AgroAnnuaire.Models.Site", "site")
+                        .WithMany("Collaborateurs")
+                        .HasForeignKey("SiteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("service");
+
+                    b.Navigation("site");
+                });
+
+            modelBuilder.Entity("AgroAnnuaire.Models.Service", b =>
+                {
+                    b.Navigation("Collaborateurs");
+                });
+
+            modelBuilder.Entity("AgroAnnuaire.Models.Site", b =>
+                {
+                    b.Navigation("Collaborateurs");
                 });
 #pragma warning restore 612, 618
         }

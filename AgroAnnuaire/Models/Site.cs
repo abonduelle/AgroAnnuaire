@@ -13,6 +13,6 @@ namespace AgroAnnuaire.Models
         public string Ville { get; set; } = null!;        
         public string Type { get; set; } = null!;
 
-        public ICollection<Collaborateur> Collaborateurs { get; set; }
+        //public ICollection<Collaborateur> Collaborateurs { get; set; }
     }
 }
