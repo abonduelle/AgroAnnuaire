@@ -18,7 +18,9 @@ namespace AgroAnnuaire.Models
         public int ServiceId { get; set; }
         public int SiteId { get; set; }
 
-        public Service service { get; set; } = null!;
-        public Site site { get; set; } = null!;
+        //public Service service { get; set; } = null!;
+        //public Site site { get; set; } = null!;
+        public virtual Service service { get; set; } = null!;
+        public virtual Site site { get; set; } = null!;
     }
 }

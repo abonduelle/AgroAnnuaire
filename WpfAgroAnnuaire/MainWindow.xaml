@@ -28,8 +28,9 @@
                  DisplayMemberPath="Name" SelectedValuePath="Id" SelectedValue="{Binding Id}" IsEditable="True" IsReadOnly="True"
                   Height="25" Text="Service" ScrollViewer.HorizontalScrollBarVisibility="Visible" Grid.ColumnSpan="1" Grid.Row="1" SelectionChanged="ComboServiceList_SelectionChanged"/>
 
+        <Label Content="Filtre:" HorizontalAlignment="Left" Height="25" Margin="18,209,0,0" Grid.Row="1" VerticalAlignment="Top" Width="45"/>
         <TextBox x:Name="Filtre" HorizontalAlignment="Left" Height="25"        
-                 Margin="18,209,0,0" Text="Le nom contient les lettres:" VerticalAlignment="Top" Width="156"
+                 Margin="68,209,0,0" Text="" VerticalAlignment="Top" Width="106"
                  Grid.ColumnSpan="1" Grid.Row="1" TextChanged="Filtre_TextChanged"/>
 
         <Button x:Name="Reinitialize" Content="Réinitialiser" Margin="18,59,0,0" Grid.Row="1" VerticalAlignment="Top" Width="156" Click="Reinitialize_Click" Height="25" HorizontalAlignment="Left"/>

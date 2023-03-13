@@ -10,9 +10,9 @@ namespace AgroAnnuaire.Models
     public class Site
     {
         public int Id { get; set; }
-        public string Ville { get; set; } = null!;        
+        public string Ville { get; set; } = null!;
         public string Type { get; set; } = null!;
 
-        //public ICollection<Collaborateur> Collaborateurs { get; set; }
+        public virtual ICollection<Collaborateur> Collaborateurs { get; set; }
     }
 }

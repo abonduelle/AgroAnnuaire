@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using Site = AgroAnnuaire.Models.Site;
 
 namespace WpfAgroAnnuaire
 {
@@ -36,15 +35,14 @@ namespace WpfAgroAnnuaire
         private void ComboSiteList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //Récupérer l'id du site
-            int IdSite;
-            IdSite = (int)ComboSiteList.SelectedValue;
+            int IdSite = (int)ComboSiteList.SelectedValue;
 
             //Recréer une liste de collaborateurs qui ont l'id du site en clé secondaire
             using (AgroAnnuaireContext agroAnnuaireContext = new())
             {
                 MesCollaborateurs = agroAnnuaireContext.Collaborateurs.Where(x => x.SiteId == IdSite).ToList();
             }
-            CollaborateursList.ItemsSource = MesCollaborateurs;  
+            CollaborateursList.ItemsSource = MesCollaborateurs;
         }
 
         private void ComboServiceList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -63,12 +61,12 @@ namespace WpfAgroAnnuaire
 
         private void Reinitialize_Click(object sender, RoutedEventArgs e)
         {
-            
-                using (AgroAnnuaireContext agroAnnuaireContext = new())
-                {
-                    MesCollaborateurs = agroAnnuaireContext.Collaborateurs.ToList();
-                }
-                CollaborateursList.ItemsSource = MesCollaborateurs;
+            //InitializeComponent();
+            using (AgroAnnuaireContext agroAnnuaireContext = new())
+            {
+                MesCollaborateurs = agroAnnuaireContext.Collaborateurs.ToList();
+            }
+            CollaborateursList.ItemsSource = MesCollaborateurs;
                
         }
 
