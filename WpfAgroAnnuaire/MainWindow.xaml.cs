@@ -46,13 +46,15 @@ namespace WpfAgroAnnuaire
             ServiceCollaborateur.Visibility = Visibility.Visible;
             BtnDeleteService.Visibility = Visibility.Visible;
             BtnSaveService.Visibility = Visibility.Visible;
-            SiteCollaborateur.Visibility= Visibility.Visible;   
+            SiteCollaborateur.Visibility = Visibility.Visible;   
             BtnDeleteSite.Visibility = Visibility.Visible;
             BtnSaveSite.Visibility = Visibility.Visible;
             WorkingComboServiceList.Visibility = Visibility.Visible;
             WorkingComboSiteList.Visibility = Visibility.Visible;
+            WorkingService_Copy.Visibility = Visibility.Visible;
+            WorkingSite_Copy.Visibility = Visibility.Visible;    
             Site.Visibility = Visibility.Hidden;
-            Service.Visibility = Visibility.Hidden; 
+            Service.Visibility = Visibility.Hidden;
         }
 
         private void ComboSiteList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -189,7 +191,7 @@ namespace WpfAgroAnnuaire
             using (AgroAnnuaireContext agroAnnuaireContext = new())
             {
                 Site site = new Site();
-                if (ComboSiteList.SelectedValue == "") // alors c'est une création et on enregistre
+                if (ComboSiteList.SelectedValue == "" | ComboSiteList.SelectedValue == null) // alors c'est une création et on enregistre
                 {
                     site.Ville = SiteCollaborateur.Text;
                     site.Type = "Site de production";
@@ -237,6 +239,55 @@ namespace WpfAgroAnnuaire
                     agroAnnuaireContext.SaveChanges();
                     MesSites = agroAnnuaireContext.Sites.ToList();
                     SiteCollaborateur.Text = "";
+                    }
+                }
+            }
+        }
+        private void BtnSaveService_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            using (AgroAnnuaireContext agroAnnuaireContext = new())
+            {
+                Service service = new Service();
+                if (ComboServiceList.SelectedValue == "" | ComboServiceList.SelectedValue == null) // alors c'est une création et on enregistre
+                {
+                    service.Name = ServiceCollaborateur.Text;
+                    agroAnnuaireContext.Services.Add(service);
+                    agroAnnuaireContext.SaveChanges();
+                    MesServices.ToList().Add(service);
+                }
+                else // sinon c'est une modification, reprendre l'id
+                {
+                    service.Id = (int)ComboServiceList.SelectedValue;
+                    service.Name = SiteCollaborateur.Text;
+                    agroAnnuaireContext.Services.Update(service);
+                    agroAnnuaireContext.SaveChanges();
+                    MesServices = agroAnnuaireContext.Services.ToList();
+                    MesServices.ToList().Add(service);
+                }
+            }
+        }
+
+        private void BtnDeleteService_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            using (AgroAnnuaireContext agroAnnuaireContext = new())
+            {
+                Service service = new Service();
+                int a = (int)ComboServiceList.SelectedValue;
+                if (a < 1) // Il n'y a rien à supprimer, on efface
+                {
+                    ServiceCollaborateur.Text = "";
+                }
+                else // sinon on supprime avant d'effacer
+                {
+                    service.Id = a;
+                    //object t = ComboServiceList.SelectedItem;
+
+                    //String str = (AgroAnnuaire.Models.Service)t;
+                    {
+                        agroAnnuaireContext.Services.Remove(service);
+                        agroAnnuaireContext.SaveChanges();
+                        MesServices = agroAnnuaireContext.Services.ToList();
+                        ServiceCollaborateur.Text = "";
                     }
                 }
             }

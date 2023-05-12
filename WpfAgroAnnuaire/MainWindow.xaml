@@ -88,8 +88,8 @@
                 <Image x:Name="BtnDeleteCollaborateur" HorizontalAlignment="Left" Height="30" Margin="55,0,0,0" VerticalAlignment="Top" Width="36" Source="/Delete-PNG-File.png" RenderTransformOrigin="1.483,0.468" Visibility="Hidden" MouseDown="Save_Collaborateur"/>
             </Grid>
             <Grid HorizontalAlignment="Center" Margin="0,3,0,0" Grid.Row="1" VerticalAlignment="Top" Width="86">
-                <Image x:Name="BtnDeleteService" HorizontalAlignment="Left" Height="30" Margin="50,0,0,0" VerticalAlignment="Center" Width="36" Source="/Delete-PNG-File.png" Visibility="Visible" RenderTransformOrigin="0.556,1.235"/>
-                <Image x:Name="BtnSaveService" HorizontalAlignment="Left" Height="30" VerticalAlignment="Center" Width="30" Source="/Save-PNG-File.png" Visibility="Visible"/>
+                <Image x:Name="BtnDeleteService" HorizontalAlignment="Left" Height="30" Margin="50,0,0,0" VerticalAlignment="Center" Width="36" Source="/Delete-PNG-File.png" Visibility="Hidden" RenderTransformOrigin="0.556,1.235" MouseDown="BtnDeleteService_MouseDown"/>
+                <Image x:Name="BtnSaveService" HorizontalAlignment="Left" Height="30" VerticalAlignment="Center" Width="30" Source="/Save-PNG-File.png" Visibility="Hidden" MouseDown="BtnSaveService_MouseDown"/>
             </Grid>
             <Grid Grid.Column="1" HorizontalAlignment="Left" Height="41" Margin="433,49,0,0"
                   VerticalAlignment="Top" Width="157">
@@ -100,15 +100,15 @@
                 <Button x:Name="Clear" Content="Effacer" HorizontalAlignment="Center" Height="25" Margin="0,15,0,0" VerticalAlignment="Top" Width="75" Click="Clear_Click" Grid.Column="1"/>
             </Grid>
             <Grid Grid.Column="0" HorizontalAlignment="Center" Height="140" VerticalAlignment="Top">
-                <TextBox x:Name="SiteCollaborateur" Text="{Binding SelectedItem.Ville, ElementName=ComboSiteList}" HorizontalAlignment="Left" Height="25" Margin="18,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156" Visibility="Visible"/>
-                <TextBox x:Name="ServiceCollaborateur" Text="{Binding SelectedItem.Name, ElementName=ComboServiceList, Mode=TwoWay}" HorizontalAlignment="Left" Height="25" Margin="18,117,0,0" TextWrapping="Wrap" Width="156" Visibility="Visible" VerticalContentAlignment="Stretch"/>
+                <TextBox x:Name="SiteCollaborateur" Text="{Binding SelectedItem.Ville, ElementName=ComboSiteList}" HorizontalAlignment="Left" Height="25" Margin="18,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156" Visibility="Hidden"/>
+                <TextBox x:Name="ServiceCollaborateur" Text="{Binding SelectedItem.Name, ElementName=ComboServiceList, Mode=TwoWay}" HorizontalAlignment="Left" Height="25" Margin="18,117,0,0" TextWrapping="Wrap" Width="156" Visibility="Hidden" VerticalContentAlignment="Stretch"/>
             </Grid>
             <Grid HorizontalAlignment="Center" Margin="0,48,0,0" VerticalAlignment="Top" Width="86">
-                <Image x:Name="BtnSaveSite" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="30" Source="/Save-PNG-File.png" Visibility="Visible" RenderTransformOrigin="0.333,-2.348" MouseDown="BtnSaveSite_MouseDown"/>
-                <Image x:Name="BtnDeleteSite" HorizontalAlignment="Left" Height="30" Margin="50,0,0,0" VerticalAlignment="Top" Width="36" Source="/Delete-PNG-File.png" Visibility="Visible" RenderTransformOrigin="0.556,1.235" MouseDown="BtnDeleteSite_MouseDown"/>
+                <Image x:Name="BtnSaveSite" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="30" Source="/Save-PNG-File.png" Visibility="Hidden" RenderTransformOrigin="0.333,-2.348" MouseDown="BtnSaveSite_MouseDown"/>
+                <Image x:Name="BtnDeleteSite" HorizontalAlignment="Left" Height="30" Margin="50,0,0,0" VerticalAlignment="Top" Width="36" Source="/Delete-PNG-File.png" Visibility="Hidden" RenderTransformOrigin="0.556,1.235" MouseDown="BtnDeleteSite_MouseDown"/>
             </Grid>
-            <Label x:Name="WorkingService_Copy" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="42" VerticalContentAlignment="Center" Content="Service" Background="{x:Null}" FontSize="9" Padding="5,5,5,0" Margin="20,99,0,0"/>
-            <Label x:Name="WorkingSite_Copy" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="42" VerticalContentAlignment="Center" Content="Site" Background="{x:Null}" FontSize="9" Padding="5,5,5,0" Margin="20,-2,0,0"/>
+            <Label x:Name="WorkingService_Copy" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="42" VerticalContentAlignment="Center" Content="Service" Background="{x:Null}" Visibility="Hidden" FontSize="9" Padding="5,5,5,0" Margin="20,99,0,0"/>
+            <Label x:Name="WorkingSite_Copy" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="42" VerticalContentAlignment="Center" Content="Site" Background="{x:Null}" Visibility="Hidden" FontSize="9" Padding="5,5,5,0" Margin="20,-2,0,0"/>
         </Grid>
 
     </Grid>
