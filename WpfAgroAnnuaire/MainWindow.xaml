@@ -1,0 +1,115 @@
+﻿<Window x:Name="Annuaire" x:Class="WpfAgroAnnuaire.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfAgroAnnuaire"
+        mc:Ignorable="d"
+        Title="Annuaire" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Open"
+                        Executed="CRUD_Open"/>
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Command="ApplicationCommands.Open"
+                    Gesture="Ctrl+Shift+A"/>
+    </Window.InputBindings>
+    <Grid>
+        <Grid x:Name="GridAgroAnnuaire" Background="#FFF1F1E7">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="175*"/>
+                <RowDefinition Height="340*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="225*"/>
+                <ColumnDefinition Width="750*"/>
+            </Grid.ColumnDefinitions>
+            <DataGrid x:Name="CollaborateursList" HorizontalAlignment="Left" Height="250" Margin="20,20,0,0" 
+                VerticalAlignment="Top" Width="570" Background="#FFF0F0F0" BorderBrush="#FF40547B"
+                VerticalGridLinesBrush="#FF165B08" HeadersVisibility="Column" Grid.Column="2" Grid.Row="2" IsEnabled="True" SelectionChanged="CollaborateursList_SelectionChanged"/>
+
+            <ComboBox x:Name="ComboSiteList" Margin="18,109,0,0" VerticalAlignment="Top" Width="156"
+                DisplayMemberPath="Ville" SelectedValuePath="Id" SelectedValue="{Binding Id}" IsEditable="True" IsReadOnly="True" 
+                Height="25" Text="Site" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Grid.ColumnSpan="1" Grid.Row="1" SelectionChanged="ComboSiteList_SelectionChanged" HorizontalAlignment="Left"/>
+
+            <ComboBox x:Name="ComboServiceList" HorizontalAlignment="Left" Margin="18,159,0,0" VerticalAlignment="Top" Width="156"
+                DisplayMemberPath="Name" SelectedValuePath="Id" SelectedValue="{Binding Id}" IsEditable="True" IsReadOnly="True"
+                Height="25" Text="Service" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Grid.ColumnSpan="1" Grid.Row="1" SelectionChanged="ComboServiceList_SelectionChanged"/>
+
+            <Label Content="Filtre:" HorizontalAlignment="Left" Height="25" Margin="18,209,0,0" Grid.Row="1" VerticalAlignment="Top" Width="45"/>
+            <TextBox x:Name="Filtre" HorizontalAlignment="Left" Height="25"        
+                Margin="68,209,0,0" Text="" VerticalAlignment="Top" Width="106"
+                Grid.ColumnSpan="1" Grid.Row="1" TextChanged="Filtre_TextChanged" CharacterCasing="Upper"/>
+            <Button x:Name="Reinitialize" Content="Réinitialiser" Margin="18,59,0,0" Grid.Row="1" VerticalAlignment="Top" Width="156" Click="Reinitialize_Click" Height="25" HorizontalAlignment="Left"/>
+
+            <Grid Grid.Column="1" HorizontalAlignment="Left" Height="40" Margin="20,0,0,0" VerticalAlignment="Top">
+                <TextBox x:Name="Prenom" Text="{Binding SelectedItem.FirstName, ElementName=CollaborateursList, Mode=TwoWay}" HorizontalAlignment="Left" Height="25" Margin="0,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156"/>
+                <Label x:Name="FirstName" HorizontalAlignment="Left" Height="20" Width="42" Content="Prénom" Background="{x:Null}" FontSize="9" Padding="5,5,5,0" VerticalAlignment="Top"/>
+            </Grid>
+            <Grid Grid.Column="1" HorizontalAlignment="Center" Height="40" VerticalAlignment="Top">
+                <TextBox x:Name="Nom" Text="{Binding SelectedItem.LastName, ElementName=CollaborateursList, Mode=TwoWay}" HorizontalAlignment="Left" Height="25" Margin="1,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156" CharacterCasing="Upper"/>
+                <Label x:Name="Name" HorizontalAlignment="Left" Height="20" Width="42" Content="Nom" Background="{x:Null}" FontSize="9" Padding="5,5,5,0" VerticalAlignment="Top"/>
+            </Grid>
+            <Grid Grid.Column="1" HorizontalAlignment="Left" Height="40" Margin="20,50,0,0" VerticalAlignment="Top">
+                <TextBox x:Name="TelFixe" Text="{Binding SelectedItem.PhoneNumber, ElementName=CollaborateursList, Mode=TwoWay}" HorizontalAlignment="Left" Height="25" Margin="0,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156"/>
+                <Label x:Name="PhoneNumber" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="42" VerticalContentAlignment="Center" Content="Tel fixe" Background="{x:Null}" FontSize="9" Padding="5,5,5,0"/>
+            </Grid>
+            <Grid Grid.Column="1" HorizontalAlignment="Center" Height="40" Margin="0,50,0,0" VerticalAlignment="Top">
+                <TextBox x:Name="TelMobile" Text="{Binding SelectedItem.MobilePhoneNumber, ElementName=CollaborateursList, Mode=TwoWay}" HorizontalAlignment="Left" Height="25" Margin="1,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156"/>
+                <Label x:Name="MobilePhoneNumber" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="62" VerticalContentAlignment="Center" Content="Tel portable" Background="{x:Null}" FontSize="9" Padding="5,5,5,0"/>
+            </Grid>
+            <Grid x:Name="IDGrid" Grid.Column="1" Height="40" Margin="0,40,20,20" Width="165" HorizontalAlignment="Right" >
+                <TextBox x:Name="ID" Text="{Binding SelectedItem.Id, ElementName=CollaborateursList, Mode=TwoWay}" HorizontalAlignment="Left" Height="25" Margin="10,0,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" HorizontalContentAlignment="Right" Visibility="Hidden"/>
+            </Grid>
+            <Grid Grid.Column="1" HorizontalAlignment="Left" Height="40" Margin="434,0,0,0" VerticalAlignment="Top">
+                <Grid HorizontalAlignment="Center" Height="40" VerticalAlignment="Center">
+                    <TextBox x:Name="Courriel" Text="{Binding SelectedItem.Email, ElementName=CollaborateursList, Mode=TwoWay}" HorizontalAlignment="Center" Height="25" Margin="0,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156" HorizontalContentAlignment="Right"/>
+                    <Label x:Name="Email" HorizontalAlignment="Left" Height="20" Width="42" Content="Courriel" Background="{x:Null}" FontSize="9" Padding="5,5,5,0" VerticalAlignment="Top"/>
+                </Grid>
+            </Grid>
+            <Grid Grid.Column="1" HorizontalAlignment="Left" Height="44" Margin="20,99,0,0" VerticalAlignment="Top">
+                <TextBox x:Name="Site" Text="{Binding SelectedItem.site.Ville, ElementName=CollaborateursList, Mode=TwoWay}" HorizontalAlignment="Left" Height="25" Margin="0,19,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156"/>
+                <Label x:Name="WorkingSite" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="42" VerticalContentAlignment="Center" Content="Site" Background="{x:Null}" FontSize="9" Padding="5,5,5,0"/>
+            </Grid>
+            <ComboBox x:Name="WorkingComboSiteList" Margin="25,120,0,0" VerticalAlignment="Top" Width="156"
+                DisplayMemberPath="Ville" SelectedValuePath="Id" SelectedValue="{Binding SelectedItem.site.Id, ElementName=CollaborateursList}" IsEditable="True" IsReadOnly="True" 
+                Height="25" Text="Site" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Grid.ColumnSpan="1" HorizontalAlignment="Left" Grid.Column="1" Visibility="Hidden"/>
+
+            <Grid Grid.Column="1" HorizontalAlignment="Center" Height="44" Margin="0,99,0,0" VerticalAlignment="Top" Width="156">
+                <TextBox x:Name="Service" Text="{Binding SelectedItem.service.Name, ElementName=CollaborateursList, Mode=TwoWay}" HorizontalAlignment="Center" Height="25" Margin="0,19,0,0" TextWrapping="Wrap" Width="156" VerticalContentAlignment="Stretch"/>
+                <Label x:Name="WorkingService" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="42" VerticalContentAlignment="Center" Content="Service" Background="{x:Null}" FontSize="9" Padding="5,5,5,0"/>
+            </Grid>
+            <ComboBox x:Name="WorkingComboServiceList" HorizontalAlignment="Center" Margin="5,120,0,0" VerticalAlignment="Top" Width="156"
+                DisplayMemberPath="Name" SelectedValuePath="Id" SelectedValue="{Binding SelectedItem.service.Id, ElementName=CollaborateursList}" IsEditable="True" IsReadOnly="True"
+                Height="25" Text="Service" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Grid.Column="1" Visibility="Hidden"/>
+            <Grid Grid.Column="1" HorizontalAlignment="Left" Margin="469,107,0,0" VerticalAlignment="Top" Width="99">
+                <Image x:Name="BtnSaveCollaborateur" HorizontalAlignment="Left" Height="30" Margin="0,0,0,0" VerticalAlignment="Top" Width="30" Source="/Save-PNG-File.png" Visibility="Hidden" MouseDown="Save_Collaborateur"/>
+                <Image x:Name="BtnDeleteCollaborateur" HorizontalAlignment="Left" Height="30" Margin="55,0,0,0" VerticalAlignment="Top" Width="36" Source="/Delete-PNG-File.png" RenderTransformOrigin="1.483,0.468" Visibility="Hidden" MouseDown="Save_Collaborateur"/>
+            </Grid>
+            <Grid HorizontalAlignment="Center" Margin="0,3,0,0" Grid.Row="1" VerticalAlignment="Top" Width="86">
+                <Image x:Name="BtnDeleteService" HorizontalAlignment="Left" Height="30" Margin="50,0,0,0" VerticalAlignment="Center" Width="36" Source="/Delete-PNG-File.png" Visibility="Hidden" RenderTransformOrigin="0.556,1.235" MouseDown="BtnDeleteService_MouseDown"/>
+                <Image x:Name="BtnSaveService" HorizontalAlignment="Left" Height="30" VerticalAlignment="Center" Width="30" Source="/Save-PNG-File.png" Visibility="Hidden" MouseDown="BtnSaveService_MouseDown"/>
+            </Grid>
+            <Grid Grid.Column="1" HorizontalAlignment="Left" Height="41" Margin="433,49,0,0"
+                  VerticalAlignment="Top" Width="157">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="77*"/>
+                    <ColumnDefinition Width="80*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="Clear" Content="Effacer" HorizontalAlignment="Center" Height="25" Margin="0,15,0,0" VerticalAlignment="Top" Width="75" Click="Clear_Click" Grid.Column="1"/>
+            </Grid>
+            <Grid Grid.Column="0" HorizontalAlignment="Center" Height="140" VerticalAlignment="Top">
+                <TextBox x:Name="SiteCollaborateur" Text="{Binding SelectedItem.Ville, ElementName=ComboSiteList}" HorizontalAlignment="Left" Height="25" Margin="18,15,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156" Visibility="Hidden"/>
+                <TextBox x:Name="ServiceCollaborateur" Text="{Binding SelectedItem.Name, ElementName=ComboServiceList, Mode=TwoWay}" HorizontalAlignment="Left" Height="25" Margin="18,117,0,0" TextWrapping="Wrap" Width="156" Visibility="Hidden" VerticalContentAlignment="Stretch"/>
+            </Grid>
+            <Grid HorizontalAlignment="Center" Margin="0,48,0,0" VerticalAlignment="Top" Width="86">
+                <Image x:Name="BtnSaveSite" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" Width="30" Source="/Save-PNG-File.png" Visibility="Hidden" RenderTransformOrigin="0.333,-2.348" MouseDown="BtnSaveSite_MouseDown"/>
+                <Image x:Name="BtnDeleteSite" HorizontalAlignment="Left" Height="30" Margin="50,0,0,0" VerticalAlignment="Top" Width="36" Source="/Delete-PNG-File.png" Visibility="Hidden" RenderTransformOrigin="0.556,1.235" MouseDown="BtnDeleteSite_MouseDown"/>
+            </Grid>
+            <Label x:Name="WorkingService_Copy" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="42" VerticalContentAlignment="Center" Content="Service" Background="{x:Null}" Visibility="Hidden" FontSize="9" Padding="5,5,5,0" Margin="20,99,0,0"/>
+            <Label x:Name="WorkingSite_Copy" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="42" VerticalContentAlignment="Center" Content="Site" Background="{x:Null}" Visibility="Hidden" FontSize="9" Padding="5,5,5,0" Margin="20,-2,0,0"/>
+        </Grid>
+
+    </Grid>
+</Window>
